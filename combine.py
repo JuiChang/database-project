@@ -6,6 +6,7 @@
 from tkinter import *
 import MySQLdb
 import pandas as pd
+import os
 
 # 連接 MySQL 資料庫
 db = MySQLdb.connect(host="localhost",
@@ -51,7 +52,32 @@ text.config(width=85, highlightbackground='green')
 text.grid(row=2, column=1, sticky='nsew')
 
 
-lab_str = StringVar()
+# row 6
+frame = Frame(top)
+frame.grid(row=5, columnspan=2, sticky='nsew')
+
+# dlab5_str = StringVar()
+# dlab5_str.set('ttttttt')
+# dlab5 = Label(frame, textvariable=dlab5_str)
+# dlab5.config(font=("Courier", 20))
+# dlab5.grid(row=0, columnspan=2, ipady=20, sticky='nsew')
+
+# dlab6_str = StringVar()
+# dlab6_str.set('uuuuuuuuuu')
+# dlab6 = Label(frame, textvariable=dlab6_str)
+# dlab6.config(font=("Courier", 20))
+# dlab6.grid(row=1, columnspan=2, ipady=20, sticky='nsew')
+
+# # frame.grid_des()
+# # frame.grid(row=5, columnspan=2, sticky='nsew')
+
+# dlab7_str = StringVar()
+# dlab7_str.set('vvvvvvv')
+# dlab7 = Label(frame, textvariable=dlab7_str)
+# dlab7.config(font=("Courier", 20))
+# dlab7.grid(row=0, columnspan=2, ipady=20, sticky='nsew')
+
+
 
 def but_func(event):
     om_value = om_str.get()
@@ -62,18 +88,23 @@ def but_func(event):
         cursor.execute(text_value)
     
         results = cursor.fetchall()
-        # print("type of results:", type(results))
         
-        df = pd.DataFrame(columns=results[0].keys())
-        print(len(results))
-        print(results[0].values())
-        for i in range(len(results)):
-            df.loc[i] = list(results[i].values())
+        # df = pd.DataFrame(columns=results[0].keys())
+        # for i in range(len(results)):
+        #     df.loc[i] = list(results[i].values())
+        # print(df.to_string(index=False))
 
-        print(df.to_string(index=False))
-        lab_str.set(df.to_string(index=False))
-        # lab_str.set(str(results[0].keys()) + '\n' + str(results[0].values()))
-            
+        secdf = Frame(frame)
+        secdf.pack()
+        num_row = len(results) + 1
+        num_col = len(results[0])
+        for i in range(num_row):
+            for j in range(num_col):
+                lab_str = StringVar()
+                lab_str.set('no content {}'.format(i*j))
+                b = Label(secdf, textvariable=lab_str)
+                b.grid(row=i, column=j)
+                    
     # else send the query commsnds depend on om_value (switch cases)
 
     # get the query result(in the way determined by om_value and entry_value) from mysql
@@ -98,10 +129,6 @@ dlab4.config(font=("Courier", 20))
 dlab4.grid(row=4, columnspan=2, ipady=20, sticky='nsew')
 
 
-# row 6
-lab_str.set('no content')
-lab = Label(top, textvariable=lab_str, anchor='e', justify=LEFT)
-lab.grid(row=5, columnspan=2, sticky='nsew')
-# lab.grid(row=5, sticky='nsew')
+
 
 top.mainloop()
