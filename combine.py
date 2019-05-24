@@ -55,6 +55,8 @@ text.grid(row=2, column=1, sticky='nsew')
 # row 6
 frame = Frame(top)
 frame.grid(row=5, columnspan=2, sticky='nsew')
+secdf = Frame(frame)
+secdf.pack()
 
 # dlab5_str = StringVar()
 # dlab5_str.set('ttttttt')
@@ -80,6 +82,7 @@ frame.grid(row=5, columnspan=2, sticky='nsew')
 
 
 def but_func(event):
+    global secdf
     om_value = om_str.get()
     text_value = text.get("1.0",END)
 
@@ -94,14 +97,23 @@ def but_func(event):
         #     df.loc[i] = list(results[i].values())
         # print(df.to_string(index=False))
 
+        secdf.destroy()
         secdf = Frame(frame)
         secdf.pack()
         num_row = len(results) + 1
         num_col = len(results[0])
-        for i in range(num_row):
+        col_names = list(results[0].keys())
+        for j in range(num_col):
+            lab_str = StringVar()
+            lab_str.set(col_names[j])
+            b = Label(secdf, textvariable=lab_str)
+            b.grid(row=0, column=j)
+
+        for i in range(1, num_row):
             for j in range(num_col):
+                values = list(results[i].values())
                 lab_str = StringVar()
-                lab_str.set('no content {}'.format(i*j))
+                lab_str.set(values[j])
                 b = Label(secdf, textvariable=lab_str)
                 b.grid(row=i, column=j)
                     
