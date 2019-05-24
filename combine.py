@@ -7,58 +7,41 @@ from tkinter import *
 
 top = Tk()
 
-frame1 = Frame(top, width=800, height=100, bg='DarkSeaGreen1')
-frame1.pack()
-frame1.pack_propagate(0)
-frame2 = Frame(top, width=800, height=100, bg='hot pink')
-frame2.pack()
-frame2.pack_propagate(0)
-frame3 = Frame(top, width=800, height=100, bg='SkyBlue1')
-frame3.pack()
-frame3.pack_propagate(0)
-frame4 = Frame(top, width=800, height=100, bg='yellow')
-frame4.pack()
-frame4.pack_propagate(0)
-frame5 = Frame(top, width=800, height=100, bg='thistle1')
-frame5.pack()
-frame5.pack_propagate(0)
-
-# frame 1
+# row 1
 dlab1_str = StringVar()
 dlab1_str.set('Cram School Database')
-dlab1 = Label(frame1, textvariable=dlab1_str)
-dlab1.config(font=("Courier", 20), width=60, height=3, bg='DarkSeaGreen1')
-dlab1.pack()
+dlab1 = Label(top, textvariable=dlab1_str, )
+dlab1.config(font=("Courier", 25), bg='SkyBlue1')
+dlab1.grid(row=0, columnspan=2, ipady=30, sticky='nsew')
 
-# frame 2
+# row 2
 dlab2_str = StringVar()
-dlab2_str.set('Search Tool')
-dlab2 = Label(frame2, textvariable=dlab2_str)
-dlab2.config(font=("Courier", 20))
+dlab2_str.set('Options')
+dlab2 = Label(top, textvariable=dlab2_str)
+dlab2.config(font=("Courier", 20), bg='DarkSeaGreen1')
 # dlab2.pack(side = LEFT)
-dlab2.grid(row=0, column=0)
+dlab2.grid(row=1, column=0, sticky='nsew')
 
 om_str = StringVar()
 om_str.set("one")
-om = OptionMenu(frame2, om_str, "one", "two", "three", "four")
+om = OptionMenu(top, om_str, "one", "two", "three", "four")
 om.config(width=60)
 # om.pack(side = RIGHT)
-om.grid(row=0, column=1)
+om.grid(row=1, column=1, sticky='nsew')
 
-# frame 3
+# row 3
 dlab3_str = StringVar()
 dlab3_str.set('KeyWords')
-dlab3 = Label(frame2, textvariable=dlab3_str)
-dlab3.config(font=("Courier", 20))
-dlab3.pack(side = LEFT)
-dlab3.grid(row=1, column=0)
+dlab3 = Label(top, textvariable=dlab3_str)
+dlab3.config(font=("Courier", 20), bg='hot pink')
+# dlab3.pack(side = LEFT)
+dlab3.grid(row=2, column=0, sticky='nsew')
 
-# e = Entry(frame3, bd=5) #?
-# e.pack(side = RIGHT)
-text = Text(frame2)
-text.config(width=85)
-text.pack(side=RIGHT)
-text.grid(row=1, column=1)
+
+text = Text(top)
+text.config(width=85, highlightbackground='green')
+# text.pack(side=RIGHT)
+text.grid(row=2, column=1, sticky='nsew')
 
 
 lab_str = StringVar()
@@ -78,17 +61,25 @@ def but_func(event):
     # output to GUI
     lab_str.set(om_value + '\n' + text_value)
 
-# frame 4
-b = Button(frame4, text='Search', bg='yellow')
+# row 4
+b = Button(top, text='Search', bg='yellow')
 b.bind("<Button-1>", but_func)
 # b.place(x=100,y=20)
 # b.config( height = 2, width = 80, bg='yellow')
-b.pack(fill=BOTH)
+b.grid(row=3, columnspan=2, sticky='nsew')
 
 
-# frame 5
+# row 5
+dlab4_str = StringVar()
+dlab4_str.set('Query Result')
+dlab4 = Label(top, textvariable=dlab4_str)
+dlab4.config(font=("Courier", 20))
+dlab4.grid(row=4, columnspan=2, ipady=20, sticky='nsew')
+
+
+# row 6
 lab_str.set('no content')
-lab = Label(frame5, textvariable=lab_str)
-lab.pack(fill=BOTH)
+lab = Label(top, textvariable=lab_str)
+lab.grid(row=5, columnspan=2, sticky='nsew')
 
 top.mainloop()
