@@ -5,44 +5,23 @@
 
 from tkinter import *
 
-
 top = Tk()
 
-labelout = StringVar()
-
-om_value = "om initial"
-entry_value = "entry initial"
-
-def om_func(value):
-    global om_value
-    om_value = value
-    print(om_value)
-
-def entry_func(e):
-    global entry_value 
-    entry_value = e.widget.get()
-    print(entry_value)
-    print('1')
-
-
-
-
-omout = StringVar()
-omout.set("one") # initial value
-option = OptionMenu(top, omout, "one", "two", "three", "four", command=om_func)
+om = StringVar()
+om.set("one")
+option = OptionMenu(top, om, "one", "two", "three", "four")
 option.pack()
 
 E1 = Entry(top, bd =5)
 # E1.pack(side = RIGHT)
-# E1.bind("<Key>", entry_func) 
 E1.pack()
 
-def but_func(event):
-    print(omout.get())
-    print(E1.get())
-    print('1')
+lab = StringVar()
 
+def but_func(event):
     # print('but_func')
+    om_value = om.get()
+    entry_value = E1.get()
 
     # if om_value == 'MySQL', send query(determined by om_value and entry_value) to mysql
 
@@ -51,16 +30,17 @@ def but_func(event):
     # get the query result(in the way determined by om_value and entry_value) from mysql
 
     # output to GUI
-    labelout.set(entry_value)
-    print('2')
+    lab.set(om_value + entry_value)
 
-b = Button(top, text='bbutton')
+
+b = Button(top, text='my button')
 b.bind("<Button-1>", but_func)
 # b.place(x=100,y=20)
+b.config( height = 1, width = 30)
 b.pack()
 
-labelout.set('blue sky')
-w = Label(top, textvariable=labelout)
+lab.set('label initial content')
+w = Label(top, textvariable=lab)
 w.pack()
 
 top.mainloop()
