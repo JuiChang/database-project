@@ -1,8 +1,3 @@
-# OptionMenu (input)
-# Entry (input)
-# Button (input)
-# Label (output)
-
 from tkinter import *
 import MySQLdb
 
@@ -69,12 +64,11 @@ secdf.pack()
 
 
 
-# "COUNT of employees",
-# "SUM of the hours of all courses",
-# "pairs of (EmployeeName, StudentName), HAVING COUNT > 1 in SELL"
-
 def but_func(event):
     global secdf
+    secdf.destroy()
+    secdf = Frame(frame)
+    secdf.pack()
     om_value = om_str.get()
     text_value = text.get("1.0",END)
     exception = 0
@@ -165,9 +159,11 @@ def but_func(event):
                                 HAVING COUNT(*)>1;""")
             
 
-    except (MySQLdb.Error, MySQLdb.Warning) as e:
+    # except (MySQLdb.Error, MySQLdb.Warning) as e:
+    #         exception = 1
+    #         print(e)
+    except:
             exception = 1
-            print(e)
     
     
 
@@ -179,9 +175,9 @@ def but_func(event):
         return
 
     results = cursor.fetchall()
-    secdf.destroy()
-    secdf = Frame(frame)
-    secdf.pack()
+    # secdf.destroy()
+    # secdf = Frame(frame)
+    # secdf.pack()
     if len(results):
         num_row = len(results) + 1
         num_col = len(results[0])
