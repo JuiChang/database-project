@@ -78,7 +78,7 @@ def but_func(event):
             cursor.execute(text_value)       
             db.commit()   
 
-        elif om_value == 'SELECT () FROM () WHERE ()':
+        elif om_value == "SELECT () FROM () WHERE (). Format: (), (), ()":
             li = [x.strip() for x in text_value.split(',')]
             cursor.execute('SELECT ' + li[0] + 
                             ' FROM ' + li[1] + 
